@@ -39,12 +39,37 @@ cd backend && ../.venv/bin/uvicorn app.main:app --port 8000
 .venv/bin/pytest backend/tests
 ```
 
-To review a plan with a model, set `ANTHROPIC_API_KEY`, and optionally `REVIEW_MODEL`, then run:
+The review command uses LangChain with OpenAI by default. Copy `.env.example`
+to `.env` in this folder and fill in `OPENAI_API_KEY`. The command loads this
+file automatically; existing environment variables take precedence. `.env`
+is excluded from Git and the Docker build.
+
+`REVIEW_PROVIDER` selects `openai` or `anthropic`. `REVIEW_MODEL` selects the
+model; if left empty, it defaults to `gpt-5.4-mini` for OpenAI or
+`claude-sonnet-4-6` for Anthropic. To switch to Anthropic, change both settings
+and fill in `ANTHROPIC_API_KEY`. Use a model that supports native structured
+output. No LangSmith account or key is needed.
+
+Run from this folder:
 
 ```sh
 mkdir -p out
 ./review data/plans/spring-market.md out/spring-market.json
 ```
+
+On Windows PowerShell, use this equivalent after setup:
+
+```powershell
+$env:PYTHONPATH = "backend"
+.\.venv\Scripts\python.exe -m app.review data/plans/spring-market.md out/spring-market.json
+```
+
+The command sends the full document to the selected provider with a dedicated
+review prompt and a structured JSON response format. It writes UTF-8 JSON and
+exits with a non-zero status on an API or file error. Source-quote and
+dependency validation are not implemented yet. Opening a plan in the page
+still uses its stored review; this command does not update it unless that
+stored review's path is explicitly passed as the output.
 
 The `Dockerfile` builds one container that serves the page and the API on `$PORT`, 8000 by default.
 
@@ -73,7 +98,7 @@ This checks the shape and the scheduling rules. It does not check quotes against
 ## Models and AI tools
 
 - Use any model with your own key, live from the app or offline. Your choice; tell us why in the note.
-- No key? OpenRouter has a free model you can use, also for AI features in the app: [nvidia/nemotron-3.5-super-vl:free](https://openrouter.ai/nvidia/nemotron-3.5-super-vl:free). A free OpenRouter account is enough. The starter calls Anthropic, so using it means switching the provider call.
+- No key? OpenRouter has a free model you can use, also for AI features in the app: [nvidia/nemotron-3.5-super-vl:free](https://openrouter.ai/nvidia/nemotron-3.5-super-vl:free). A free OpenRouter account is enough. This version supports OpenAI and Anthropic; using OpenRouter would require another provider integration.
 - Keep your review outputs for the three sample plans in `data/reviews/`, under the same file names. They are what your `./review` wrote, not edited by hand.
 - Name the environment variables your review command needs in the note. If we cannot run your model, we judge the AI part on your code and those outputs.
 - How the page uses AI is up to you. We judge it on whether it helps her decide.

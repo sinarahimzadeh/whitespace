@@ -1,5 +1,7 @@
 fastapi
 uvicorn[standard]
-anthropic
+langchain-openai>=1.0,<2
+langchain-anthropic>=1.1,<2
+python-dotenv>=1.0,<2
 pytest
 httpx
