@@ -12,6 +12,12 @@ A small app that reviews a plan in three steps: a model reads it and lists its t
 
 The three sample plans are in `data/plans/`. The page shows their stored reviews from `data/reviews/`, so the app runs without an API key. The backend is FastAPI; the frontend is React. The page's **Review with AI** button generates, checks and saves a fresh review using your configured provider, then immediately updates the schedule. Normal page loads use the saved result without another model call.
 
+**Edit review** lets you correct the deadline, task names, people, durations and
+dependencies, and dismiss remarks. **Apply and recalculate** updates the schedule
+without calling AI. Corrections stay in the current view until you switch plans,
+reload, restore the AI review, or run a new review. They do not overwrite the
+model-generated files in `data/reviews/`.
+
 ## Run it
 
 You need Python 3.11 or newer, Node 20 or newer, and make. On Debian or Ubuntu, `python3 -m venv` also needs the `python3-venv` package. Docker is optional.

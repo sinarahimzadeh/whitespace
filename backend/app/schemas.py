@@ -35,6 +35,10 @@ class ScheduleRequest(TaskList):
     deadline_day: int
 
 
+class SchedulePreviewRequest(TaskList):
+    deadline_day: int | None
+
+
 class ReviewTask(Task):
     quote: str
 

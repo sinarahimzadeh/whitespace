@@ -91,3 +91,30 @@ def test_failed_ai_call_keeps_previous_review(monkeypatch, tmp_path):
     response = TestClient(app).post("/api/plans/spring-market/review")
     assert response.status_code == 502
     assert saved.read_text(encoding="utf-8") == '{"original": true}'
+
+
+def test_corrections_recalculate_without_changing_saved_ai_review():
+    import app.main as main
+
+    client = TestClient(app)
+    path = main.DATA / "reviews" / "spring-market.json"
+    original = path.read_text(encoding="utf-8")
+    review = client.get("/api/plans/spring-market").json()["review"]
+    review["tasks"][0]["duration_days"] += 2
+    result = client.post("/api/plans/spring-market/preview", json=review)
+    assert result.status_code == 200
+    assert result.json()["end_day"] == 20
+    assert path.read_text(encoding="utf-8") == original
+
+
+def test_corrections_can_resolve_a_cycle_and_leave_deadline_unknown():
+    client = TestClient(app)
+    review = client.get("/api/plans/harbour-run").json()["review"]
+    for task in review["tasks"]:
+        if task["name"] == "Take out the event insurance":
+            task["depends_on"] = []
+    result = client.post("/api/plans/harbour-run/preview", json=review)
+    assert result.status_code == 200
+    assert result.json()["status"] == "scheduled"
+    assert result.json()["cycle"] == []
+    assert result.json()["meets_deadline"] is None

@@ -7,7 +7,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import ValidationError
 
 from .scheduler import schedule
-from .schemas import ScheduleRequest
+from .schemas import SchedulePreviewRequest, ScheduleRequest
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "data"
@@ -83,6 +83,12 @@ def run_review(plan_id: str):
 
 @app.post("/api/schedule")
 def post_schedule(body: ScheduleRequest):
+    return schedule([task.model_dump() for task in body.tasks], body.deadline_day)
+
+
+@app.post("/api/plans/{plan_id}/preview")
+def preview_corrections(plan_id: str, body: SchedulePreviewRequest):
+    plan_paths(plan_id)
     return schedule([task.model_dump() for task in body.tasks], body.deadline_day)
 
 

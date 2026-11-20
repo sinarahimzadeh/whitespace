@@ -52,4 +52,22 @@ td details summary { font-size: 11px; color: #625950; }
 .original > summary { font-size: 13px; font-weight: 500; }
 pre { font: 12px/1.8 'Inter', system-ui, sans-serif; white-space: pre-wrap; overflow-wrap: anywhere; }
 footer { padding: 16px 0; font-size: 11px; color: #625950; }
+.actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.editor { border-color: #6c962c70; }
+.editor fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.editor input:not([type="checkbox"]) { width: 100%; min-width: 100px; padding: 9px 10px; border: 1px solid #d6d6cd; border-radius: 6px; font: inherit; color: inherit; background: white; }
+.editor input:focus-visible { outline: 2px solid #6c962c; outline-offset: 2px; }
+.deadline-field { max-width: 200px; margin: 18px 0; }
+.editor td:first-child { min-width: 240px; width: 40%; }
+.editor td:nth-child(2) { min-width: 160px; }
+.editor td:nth-child(3) { width: 85px; }
+.editor td:nth-child(3) input { min-width: 65px; }
+.dependency-picker { min-width: 145px; }
+.dependency-options { max-height: 220px; overflow-y: auto; width: 230px; padding-top: 8px; }
+.dependency-options label { display: flex; align-items: flex-start; gap: 7px; padding: 5px 0; font-size: 12px; color: #2a2622; }
+.dependency-options input { margin-top: 4px; flex-shrink: 0; accent-color: #174736; }
+.editor-findings { padding-top: 20px; }
+.editor-finding { display: flex; gap: 16px; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid #d6d6cd70; font-size: 12px; }
+.editor-finding button { padding: 5px 12px; }
+.editor-actions { margin-top: 20px; }
 @media (max-width: 600px) { main { padding: 0 16px 20px; } .page-heading { padding-top: 24px; } .toolbar { align-items: stretch; flex-direction: column; gap: 12px; } label { max-width: none; } .toolbar button { align-self: flex-start; } .card, .verdict { padding: 18px; } .metrics { gap: 12px; } .metrics strong { font-size: 16px; } .verdict h2 { font-size: 20px; } }

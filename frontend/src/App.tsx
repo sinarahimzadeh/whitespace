@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import ReviewEditor from './ReviewEditor';
 import './styles.css';
 
 type PlanSummary = { id: string; title: string };
@@ -26,6 +27,8 @@ type Plan = {
   };
 };
 
+export type Review = Plan['review'];
+
 async function readResponse<T>(response: Response): Promise<T> {
   const body = await response.json().catch(() => null);
   if (!response.ok) {
@@ -41,6 +44,10 @@ export default function App() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
   const [reviewing, setReviewing] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [applying, setApplying] = useState(false);
+  const [originalPlan, setOriginalPlan] = useState<Plan | null>(null);
+  const [corrected, setCorrected] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -61,11 +68,14 @@ export default function App() {
     if (!selectedId) return;
     const controller = new AbortController();
     setPlan(null);
+    setOriginalPlan(null);
+    setEditing(false);
+    setCorrected(false);
     setError('');
     setLoading(true);
     fetch(`/api/plans/${selectedId}`, { signal: controller.signal })
       .then(readResponse<Plan>)
-      .then((result) => { setPlan(result); setLoading(false); })
+      .then((result) => { setPlan(result); setOriginalPlan(result); setLoading(false); })
       .catch((reason) => {
         if (reason.name !== 'AbortError') { setError(reason.message); setLoading(false); }
       });
@@ -78,10 +88,30 @@ export default function App() {
     try {
       const result = await fetch(`/api/plans/${selectedId}/review`, { method: 'POST' }).then(readResponse<Plan>);
       setPlan(result);
+      setOriginalPlan(result);
+      setCorrected(false);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : 'The AI review could not be completed.');
     } finally {
       setReviewing(false);
+    }
+  }
+
+  async function applyCorrections(review: Review) {
+    setApplying(true);
+    setError('');
+    try {
+      const result = await fetch(`/api/plans/${selectedId}/preview`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tasks: review.tasks, deadline_day: review.deadline_day }),
+      }).then(readResponse<Plan['schedule']>);
+      setPlan((current) => current ? { ...current, review, schedule: result } : current);
+      setCorrected(true);
+      setEditing(false);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : 'The corrections could not be applied.');
+    } finally {
+      setApplying(false);
     }
   }
 
@@ -102,16 +132,18 @@ export default function App() {
       <header><span className="brand-mark" aria-hidden="true">W</span><span>WhiteSpace <span className="muted">/ Plan reviewer</span></span></header>
       <div className="page-heading"><p className="eyebrow">Town council events</p><h1>Check an event plan</h1><p className="muted">See what can finish on time, and what needs attention.</p></div>
       <div className="toolbar">
-        <label>Plan<select value={selectedId} disabled={reviewing} onChange={(event) => setSelectedId(event.target.value)}>
+        <label>Plan<select value={selectedId} disabled={reviewing || editing} onChange={(event) => setSelectedId(event.target.value)}>
           {plans.map((item) => <option key={item.id} value={item.id}>{item.title}</option>)}
         </select></label>
-        <button className="primary" disabled={reviewing || !selectedId || loading} onClick={runReview}>{reviewing ? 'Reviewing with AI…' : 'Review with AI'}</button>
+        <div className="actions"><button disabled={!plan || reviewing || editing} onClick={() => { setError(''); setEditing(true); }}>Edit review</button><button className="primary" disabled={reviewing || editing || !selectedId || loading} onClick={runReview}>{reviewing ? 'Reviewing with AI…' : 'Review with AI'}</button></div>
       </div>
       {error && <p role="alert" className="notice warning">{error}</p>}
       {loading && <p role="status" className="notice">Loading the plan…</p>}
       {reviewing && <p role="status" className="notice">Reading the full document and preparing a new review. This may take a minute. The previous result stays below until it is ready.</p>}
       {plan && (
         <>
+          {editing && <ReviewEditor initialReview={plan.review} applying={applying} onApply={applyCorrections} onCancel={() => { setEditing(false); setError(''); }} />}
+          {corrected && <div className="notice" role="status"><p>Your corrections are applied. Original finish: {originalPlan?.schedule.end_day === null ? 'blocked' : `day ${originalPlan?.schedule.end_day}`}. Updated finish: {plan.schedule.end_day === null ? 'blocked' : `day ${plan.schedule.end_day}`}.</p><p className="muted">Changes stay in this view until you switch plans, reload, or run a new AI review. Source quotes still show the original document.</p><button onClick={() => { setPlan(originalPlan); setCorrected(false); setEditing(false); setError(''); }}>Restore AI review</button></div>}
           <section className={`verdict card ${blocked || deadlineUnclear || !schedule?.meets_deadline ? 'attention' : 'on-time'}`}>
             <p className="eyebrow">{plans.find((item) => item.id === plan.id)?.title}</p>
             <h2>{title}</h2>
