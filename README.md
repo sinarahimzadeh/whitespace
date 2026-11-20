@@ -10,7 +10,7 @@ A town council's events officer approves the plans that volunteer committees sen
 
 A small app that reviews a plan in three steps: a model reads it and lists its tasks and findings, code schedules the tasks, and a page shows the result. It works, but it does everything badly.
 
-The three sample plans are in `data/plans/`. The page shows their stored reviews from `data/reviews/`, so the app runs without an API key. The backend is FastAPI; the frontend is React with no styling.
+The three sample plans are in `data/plans/`. The page shows their stored reviews from `data/reviews/`, so the app runs without an API key. The backend is FastAPI; the frontend is React. The page's **Review with AI** button generates, checks and saves a fresh review using your configured provider, then immediately updates the schedule. Normal page loads use the saved result without another model call.
 
 ## Run it
 
@@ -33,6 +33,20 @@ cd frontend && npm run build
 cd backend && ../.venv/bin/uvicorn app.main:app --port 8000
 ```
 
+On Windows PowerShell, run these equivalents from this folder. The first
+setup is needed once; rebuild the frontend when its code changes, and start
+the final command whenever you want to run the website.
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r backend\requirements.txt
+cd frontend
+npm install
+npm run build
+cd ..\backend
+..\.venv\Scripts\python.exe -m uvicorn app.main:app --port 8000
+```
+
 `make test`:
 
 ```sh
@@ -50,6 +64,10 @@ model; if left empty, it defaults to `gpt-5.4-mini` for OpenAI or
 and fill in `ANTHROPIC_API_KEY`. Use a model that supports native structured
 output. No LangSmith account or key is needed.
 
+The default OpenAI model uses medium reasoning effort to check the whole plan.
+For another OpenAI reasoning model, `REVIEW_REASONING_EFFORT` can be set
+explicitly; omit it for models that do not support reasoning effort.
+
 Run from this folder:
 
 ```sh
@@ -66,10 +84,20 @@ $env:PYTHONPATH = "backend"
 
 The command sends the full document to the selected provider with a dedicated
 review prompt and a structured JSON response format. It writes UTF-8 JSON and
-exits with a non-zero status on an API or file error. Source-quote and
-dependency validation are not implemented yet. Opening a plan in the page
-still uses its stored review; this command does not update it unless that
-stored review's path is explicitly passed as the output.
+exits with a non-zero status on an API, file or validation error. Code checks
+the response fields, task ids and dependencies, and checks every non-null
+quote against the source after normalising whitespace. A rejected answer
+gets one correction attempt, then fails without replacing the saved review.
+Opening a plan in the page uses its stored review; the command updates it
+when `data/reviews/<plan-id>.json` is passed as the output. The page's
+**Review with AI** button also saves the new result automatically.
+
+The scheduler respects dependencies and prevents overlapping tasks for the
+same person. Circular dependencies are shown without attempting to schedule
+them. OR-Tools CP-SAT searches for the shortest finish with a six-second
+solver limit. A valid fallback is always available; the response and page
+state whether the shortest finish was proved, rather than presenting an
+unproven result as optimal. An unclear review deadline stays unknown.
 
 The `Dockerfile` builds one container that serves the page and the API on `$PORT`, 8000 by default.
 

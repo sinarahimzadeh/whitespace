@@ -1,84 +1,90 @@
 {
-  "deadline_day": 21,
   "tasks": [
     {
       "id": "T1",
       "name": "Book the main hall and the side room",
-      "owner": "Joan",
+      "owner": "Joan Whitlock",
       "duration_days": 2,
       "depends_on": [],
-      "quote": "Book the main hall and the side room"
+      "quote": "Book the main hall and the side room | Joan | 2 days | -"
     },
     {
       "id": "T2",
       "name": "Invite stallholders and confirm their pitches",
-      "owner": "Martin",
+      "owner": "Martin Ashby",
       "duration_days": 10,
       "depends_on": [
         "T1"
       ],
-      "quote": "Invite stallholders and confirm their pitches"
+      "quote": "Invite stallholders and confirm their pitches | Martin | 10 days | Book the main hall and the side room"
     },
     {
       "id": "T3",
       "name": "Organise the tea and cake stall",
-      "owner": "Joan",
+      "owner": "Joan Whitlock",
       "duration_days": 4,
       "depends_on": [
         "T1"
       ],
-      "quote": "Organise the tea and cake stall"
+      "quote": "Organise the tea and cake stall | Joan | 4 days | Book the main hall and the side room"
     },
     {
       "id": "T4",
       "name": "Design the poster and flyer",
-      "owner": "Leila",
+      "owner": "Leila Haddad",
       "duration_days": 3,
       "depends_on": [
         "T1"
       ],
-      "quote": "Design the poster and flyer"
+      "quote": "Design the poster and flyer | Leila | 3 days | Book the main hall and the side room"
     },
     {
       "id": "T5",
       "name": "Print the posters and put them up around town",
-      "owner": "Leila",
+      "owner": "Leila Haddad",
       "duration_days": 7,
       "depends_on": [
         "T4"
       ],
-      "quote": "Print the posters and put them up around town"
+      "quote": "Print the posters and put them up around town | Leila | 1 week | Design the poster and flyer"
     },
     {
       "id": "T6",
       "name": "Draw up the floor plan for both rooms",
-      "owner": "Joan",
+      "owner": "Joan Whitlock",
       "duration_days": 3,
       "depends_on": [
         "T2"
       ],
-      "quote": "Draw up the floor plan for both rooms"
+      "quote": "Draw up the floor plan for both rooms | Joan | 3 days | Invite stallholders and confirm their pitches"
     },
     {
       "id": "T7",
       "name": "Hire the extra tables and chairs",
-      "owner": "Martin",
+      "owner": "Martin Ashby",
       "duration_days": 2,
       "depends_on": [
         "T6"
       ],
-      "quote": "Hire the extra tables and chairs"
+      "quote": "Hire the extra tables and chairs | Martin | 2 days | Draw up the floor plan for both rooms"
     },
     {
       "id": "T8",
       "name": "Set up the volunteer rota for the day",
-      "owner": "Leila",
+      "owner": "Leila Haddad",
       "duration_days": 3,
       "depends_on": [
         "T6"
       ],
-      "quote": "Set up the volunteer rota for the day"
+      "quote": "Set up the volunteer rota for the day | Leila | 3 days | Draw up the floor plan for both rooms"
     }
   ],
-  "findings": []
+  "deadline_day": 21,
+  "findings": [
+    {
+      "title": "No owner is assigned to the clear-up after closing",
+      "detail": "The plan says the rooms will be cleared and the tables stacked before lock-up, but there is no task or owner for that work.",
+      "quote": "by which time the rooms will be cleared and the tables stacked."
+    }
+  ]
 }

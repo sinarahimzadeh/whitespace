@@ -1,121 +1,142 @@
 {
-  "deadline_day": 99,
   "tasks": [
     {
       "id": "T1",
       "name": "Measure and map the course",
-      "owner": "Dan",
+      "owner": "Dan Fletcher",
       "duration_days": 3,
       "depends_on": [],
-      "quote": "Measure and map the course"
+      "quote": "| Measure and map the course | Dan | 3 days | - |"
     },
     {
       "id": "T2",
       "name": "Get the course approved by the council",
-      "owner": "Dan",
+      "owner": "Dan Fletcher",
       "duration_days": 7,
       "depends_on": [
         "T1",
         "T3"
       ],
-      "quote": "Get the course approved by the council"
+      "quote": "| Get the course approved by the council | Dan | 1 week | Measure and map the course, Take out the event insurance |"
     },
     {
       "id": "T3",
       "name": "Take out the event insurance",
-      "owner": "Kerry",
+      "owner": "Kerry Moss",
       "duration_days": 3,
       "depends_on": [
         "T2"
       ],
-      "quote": "Take out the event insurance"
+      "quote": "| Take out the event insurance | Kerry | 3 days | - |"
     },
     {
       "id": "T4",
       "name": "Set up online entries",
-      "owner": "Sam",
+      "owner": "Sam Oduya",
       "duration_days": 2,
       "depends_on": [],
-      "quote": "Set up online entries"
+      "quote": "| Set up online entries | Sam | 2 days | - |"
     },
     {
       "id": "T5",
       "name": "Order race numbers and timing chips",
-      "owner": "Sam",
+      "owner": "Sam Oduya",
       "duration_days": 10,
       "depends_on": [
         "T4"
       ],
-      "quote": "Order race numbers and timing chips"
+      "quote": "| Order race numbers and timing chips | Sam | 10 days | Set up online entries |"
     },
     {
       "id": "T6",
       "name": "Order medals and T-shirts",
-      "owner": "Lucy",
+      "owner": "Lucy Briggs",
       "duration_days": 14,
       "depends_on": [],
-      "quote": "Order medals and T-shirts"
+      "quote": "| Order medals and T-shirts | Lucy | 2 weeks | - |"
     },
     {
       "id": "T7",
       "name": "Recruit marshals",
-      "owner": "Lucy",
+      "owner": "Lucy Briggs",
       "duration_days": 7,
       "depends_on": [
         "T2"
       ],
-      "quote": "Recruit marshals"
+      "quote": "| Recruit marshals | Lucy | 1 week | Get the course approved by the council |"
     },
     {
       "id": "T8",
       "name": "Brief the marshals",
-      "owner": "Dan",
+      "owner": "Dan Fletcher",
       "duration_days": 2,
       "depends_on": [
         "T7"
       ],
-      "quote": "Brief the marshals"
+      "quote": "| Brief the marshals | Dan | 2 days | Recruit marshals |"
     },
     {
       "id": "T9",
       "name": "Book first aid cover",
-      "owner": "Kerry",
+      "owner": "Kerry Moss",
       "duration_days": 3,
       "depends_on": [
         "T2"
       ],
-      "quote": "Book first aid cover"
+      "quote": "| Book first aid cover | Kerry | 3 days | Get the course approved by the council |"
     },
     {
       "id": "T10",
       "name": "Organise the water stations",
-      "owner": "Sam",
+      "owner": "Sam Oduya",
       "duration_days": 4,
       "depends_on": [
         "T1"
       ],
-      "quote": "Organise the water stations"
+      "quote": "| Organise the water stations | Sam | 4 days | Measure and map the course |"
     },
     {
       "id": "T11",
       "name": "Put out posters and the club newsletter",
-      "owner": "Kerry",
+      "owner": "Kerry Moss",
       "duration_days": 5,
       "depends_on": [
         "T4"
       ],
-      "quote": "Put out posters and the club newsletter"
+      "quote": "| Put out posters and the club newsletter | Kerry | 5 days | Set up online entries |"
     },
     {
       "id": "T12",
       "name": "Pack the goody bags and get the finish kit ready",
-      "owner": "Lucy",
+      "owner": "Lucy Briggs",
       "duration_days": 3,
       "depends_on": [
         "T6"
       ],
-      "quote": "Pack the goody bags and get the finish kit ready"
+      "quote": "| Pack the goody bags and get the finish kit ready | Lucy | 3 days | Order medals and T-shirts |"
     }
   ],
-  "findings": []
+  "deadline_day": null,
+  "findings": [
+    {
+      "title": "Insurance and course approval wait on each other",
+      "detail": "T2 depends on T3 in the table, but the notes say \"Kerry will take out the event insurance once the council has approved the course, because the insurers want a copy of the approved course map before they will cover us.\" That makes approval and insurance circular, so neither task can start.",
+      "quote": "Kerry will take out the event insurance once the council has approved the course, because the insurers want a copy of the approved course map before they will cover us."
+    },
+    {
+      "title": "The plan gives two different deadlines",
+      "detail": "The summary puts the run 30 days after kickoff, but the task table says everything must be done five weeks after kickoff. Those deadlines do not match, so the plan does not have one clear event deadline.",
+      "quote": "Everything in the table has to be done five weeks after kickoff, by the morning of the run."
+    }
+  ],
+  "deadline_candidates": [
+    {
+      "day": 30,
+      "quote": "The run is on a Sunday morning, 30 days after kickoff."
+    },
+    {
+      "day": 35,
+      "quote": "Everything in the table has to be done five weeks after kickoff, by the morning of the run."
+    }
+  ]
 }

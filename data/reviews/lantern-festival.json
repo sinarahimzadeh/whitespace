@@ -1,195 +1,196 @@
 {
-  "deadline_day": 45,
   "tasks": [
     {
       "id": "T1",
       "name": "Agree the route and the site plan with the council",
-      "owner": "Ruth",
+      "owner": "Ruth Marsh",
       "duration_days": 5,
       "depends_on": [],
-      "quote": "Agree the route and the site plan with the council"
+      "quote": "| Agree the route and the site plan with the council | Ruth | 5 days | - |"
     },
     {
       "id": "T2",
       "name": "Apply for the road closure",
-      "owner": "Ruth",
-      "duration_days": 10,
+      "owner": "Ruth Marsh",
+      "duration_days": 14,
       "depends_on": [
         "T1"
       ],
-      "quote": "Apply for the road closure"
+      "quote": "| Apply for the road closure | Ruth | about two weeks | Agree the route and the site plan with the council |"
     },
     {
       "id": "T3",
       "name": "Arrange first aid cover",
-      "owner": "Gareth",
+      "owner": "Gareth Owen",
       "duration_days": 4,
       "depends_on": [
         "T1"
       ],
-      "quote": "Arrange first aid cover"
+      "quote": "| Arrange first aid cover | Gareth | 4 days | Agree the route and the site plan with the council |"
     },
     {
       "id": "T4",
       "name": "Write the risk assessment",
-      "owner": "Ruth",
+      "owner": "Ruth Marsh",
       "duration_days": 5,
       "depends_on": [
         "T1",
         "T3"
       ],
-      "quote": "Write the risk assessment"
+      "quote": "| Write the risk assessment | Ruth | 5 days | Agree the route and the site plan with the council |"
     },
     {
       "id": "T5",
       "name": "Arrange the event insurance",
-      "owner": "Ruth",
+      "owner": "Ruth Marsh",
       "duration_days": 3,
-      "depends_on": [],
-      "quote": "Arrange the event insurance"
+      "depends_on": [
+        "T4"
+      ],
+      "quote": "| Arrange the event insurance | Ruth | 3 days | - |"
     },
     {
       "id": "T6",
       "name": "Book the Silver Band and the samba band",
-      "owner": "Ruth",
+      "owner": "Ruth Marsh",
       "duration_days": 5,
       "depends_on": [],
-      "quote": "Book the Silver Band and the samba band"
+      "quote": "| Book the Silver Band and the samba band | Ruth | 5 days | - |"
     },
     {
       "id": "T7",
       "name": "Book the food stalls",
-      "owner": "Ruth",
+      "owner": "Ruth Marsh",
       "duration_days": 7,
       "depends_on": [
         "T1"
       ],
-      "quote": "Book the food stalls"
+      "quote": "| Book the food stalls | Ruth | 1 week | Agree the route and the site plan with the council |"
     },
     {
       "id": "T8",
       "name": "Hire the toilets and the crowd barriers",
-      "owner": "Gareth",
+      "owner": "Gareth Owen",
       "duration_days": 3,
       "depends_on": [
         "T1"
       ],
-      "quote": "Hire the toilets and the crowd barriers"
+      "quote": "| Hire the toilets and the crowd barriers | Gareth | 3 days | Agree the route and the site plan with the council |"
     },
     {
       "id": "T9",
       "name": "Arrange extra bins and a litter-pick team for the night",
-      "owner": null,
+      "owner": "",
       "duration_days": 2,
       "depends_on": [
         "T1"
       ],
-      "quote": "Arrange extra bins and a litter-pick team for the night"
+      "quote": "| Arrange extra bins and a litter-pick team for the night | tbc | 2 days | Agree the route and the site plan with the council |"
     },
     {
       "id": "T10",
       "name": "Recruit stewards",
-      "owner": "Ruth",
+      "owner": "Ruth Marsh",
       "duration_days": 7,
       "depends_on": [
         "T1"
       ],
-      "quote": "Recruit stewards"
+      "quote": "| Recruit stewards | Ruth | 1 week | Agree the route and the site plan with the council |"
     },
     {
       "id": "T11",
       "name": "Brief the stewards",
-      "owner": "Ruth",
+      "owner": "Ruth Marsh",
       "duration_days": 3,
       "depends_on": [
         "T10",
         "T4"
       ],
-      "quote": "Brief the stewards"
+      "quote": "| Brief the stewards | Ruth | 3 days | Recruit stewards, Write the risk assessment |"
     },
     {
       "id": "T12",
       "name": "Draw up the volunteer rota",
-      "owner": "Hannah",
+      "owner": "Hannah Cole",
       "duration_days": 3,
       "depends_on": [
         "T10"
       ],
-      "quote": "Draw up the volunteer rota"
+      "quote": "| Draw up the volunteer rota | Hannah | 3 days | Recruit stewards |"
     },
     {
       "id": "T13",
       "name": "Raise sponsorship from local businesses",
-      "owner": "Hannah",
+      "owner": "Hannah Cole",
       "duration_days": 14,
       "depends_on": [],
-      "quote": "Raise sponsorship from local businesses"
+      "quote": "| Raise sponsorship from local businesses | Hannah | 2 weeks | - |"
     },
     {
       "id": "T14",
       "name": "Order the lantern-making materials",
-      "owner": "Priya",
+      "owner": "Priya Shah",
       "duration_days": 7,
       "depends_on": [
         "T13"
       ],
-      "quote": "Order the lantern-making materials"
+      "quote": "| Order the lantern-making materials | Priya | 1 week | Raise sponsorship from local businesses |"
     },
     {
       "id": "T15",
       "name": "Run the lantern-making workshops in both schools",
-      "owner": "Priya",
+      "owner": "Priya Shah",
       "duration_days": 15,
       "depends_on": [
         "T14"
       ],
-      "quote": "Run lantern-making workshops in both of the schools"
+      "quote": "| Run the lantern-making workshops in both schools | Priya | 15 days | Order the lantern-making materials |"
     },
     {
       "id": "T16",
       "name": "Design the poster and flyer",
-      "owner": "Tom",
+      "owner": "Tom Bellamy",
       "duration_days": 5,
       "depends_on": [
         "T6"
       ],
-      "quote": "Design the poster and flyer"
+      "quote": "| Design the poster and flyer | Tom | 5 days | Book the Silver Band and the samba band |"
     },
     {
       "id": "T17",
       "name": "Print the posters and flyers",
-      "owner": "Tom",
+      "owner": "Tom Bellamy",
       "duration_days": 4,
       "depends_on": [
         "T16",
         "T2"
       ],
-      "quote": "Print the posters and flyers"
+      "quote": "| Print the posters and flyers | Tom | 4 days | Design the poster and flyer |"
     },
     {
       "id": "T18",
       "name": "Put up the posters and deliver the flyers",
-      "owner": "Tom",
+      "owner": "Tom Bellamy",
       "duration_days": 6,
       "depends_on": [
         "T17"
       ],
-      "quote": "Put up the posters and deliver the flyers"
+      "quote": "| Put up the posters and deliver the flyers | Tom | 6 days | Print the posters and flyers |"
     },
     {
       "id": "T19",
-      "name": "Hire the stage lighting and PA",
-      "owner": "Ruth",
+      "name": "Arrange the hire of the stage lighting and a PA system for the green",
+      "owner": "Ruth Marsh",
       "duration_days": 3,
       "depends_on": [
         "T6"
       ],
-      "quote": "Once both bands are booked and have sent over what they need, Ruth will also arrange the hire of the stage lighting and a PA system for the green."
+      "quote": "Once both bands are booked and have sent over what they need, Ruth will also arrange the hire of the stage lighting and a PA system for the green. She reckons that is three days of phone calls and quotes."
     },
     {
       "id": "T20",
-      "name": "Collect and store the finished lanterns",
-      "owner": "Priya",
+      "name": "Collect the finished lanterns from both schools and store them at the community centre until the evening",
+      "owner": "Priya Shah",
       "duration_days": 2,
       "depends_on": [
         "T15"
@@ -198,30 +199,36 @@
     },
     {
       "id": "T21",
-      "name": "Build the finale frame",
-      "owner": "Gareth",
+      "name": "Build the frame for the finale in his garage",
+      "owner": "Gareth Owen",
       "duration_days": 8,
       "depends_on": [
         "T13"
       ],
-      "quote": "Gareth will build the frame for the finale in his garage, so it only needs putting up on the green on the evening."
+      "quote": "Gareth will build the frame for the finale in his garage, so it only needs putting up on the green on the evening. He can start as soon as the sponsorship money is in to buy the timber, and it takes him eight days."
     },
     {
       "id": "T22",
-      "name": "Write the press release and social media posts",
-      "owner": "Tom",
+      "name": "Write the press release for the Pellerby Echo and set up the posts for our social media page",
+      "owner": "Tom Bellamy",
       "duration_days": 3,
       "depends_on": [
         "T16"
       ],
-      "quote": "Once the poster design is done, Tom will also write the press release for the Pellerby Echo and set up the posts for our social media page, so that everything uses the same artwork."
+      "quote": "Once the poster design is done, Tom will also write the press release for the Pellerby Echo and set up the posts for our social media page, so that everything uses the same artwork. He thinks that is three days."
     }
   ],
+  "deadline_day": 45,
   "findings": [
     {
-      "title": "One task has no owner",
-      "detail": "The task to arrange extra bins and a litter-pick team for the night is marked tbc, so nobody is responsible for it and it may not get done.",
-      "quote": "Arrange extra bins and a litter-pick team for the night"
+      "title": "One task has no named owner",
+      "detail": "The bins and litter-pick job is marked tbc, so nobody is responsible for it unless someone is assigned.",
+      "quote": "| Arrange extra bins and a litter-pick team for the night | tbc | 2 days | Agree the route and the site plan with the council |"
+    },
+    {
+      "title": "Durations are only rough estimates",
+      "detail": "The plan says the work is given \"roughly how long it takes\", so the day counts should be treated as estimates rather than fixed timings.",
+      "quote": "This is everything we know needs doing, with who is doing it and roughly how long it takes."
     }
   ]
 }

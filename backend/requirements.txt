@@ -3,5 +3,6 @@ uvicorn[standard]
 langchain-openai>=1.0,<2
 langchain-anthropic>=1.1,<2
 python-dotenv>=1.0,<2
+ortools>=9.10,<10
 pytest
 httpx
